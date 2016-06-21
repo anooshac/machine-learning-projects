@@ -40,18 +40,23 @@ unique_test_pixels=pd.unique(test.values.ravel())
 train_train, train_test=train_test_split(train, test_size=0.3)
 
 #Train model
-#model=RandomForestClassifier(n_estimators = 100, oob_score = True, random_state =10, max_features = "auto", min_samples_leaf = 20)
+model=RandomForestClassifier(n_estimators = 100, oob_score = True, random_state =10, max_features = "auto", min_samples_leaf = 20)
+#model=KNeighborsClassifier(n_neighbors=6)
+
 
 #if getting this error, it is because a matrix with 1 column
 #is being passed in when a 1d array is expected. ravel() will work.
 #DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel(). if name == 'main':
 #To resolve this error, convert label values to int or str as float is not a valid label-type
 #raise ValueError("Unknown label type: %r" % y) ValueError: Unknown label type: array
-model.fit(train_train.ix[:,'pixel0':'pixel783'], np.asarray(train_train.ix[:,'label'].astype(int)))
-print "model.score:", model.score(train_test.ix[:,'pixel0':'pixel783'], np.asarray(train_test.ix[:,'label'].astype(int)))
+#model.fit(train_train.ix[:,'pixel0':'pixel783'], np.asarray(train_train.ix[:,'label'].astype(int)))
+#print "model.score:", model.score(train_test.ix[:,'pixel0':'pixel783'], np.asarray(train_test.ix[:,'label'].astype(int)))
 #print "cross validation score:", cross_validation.cross_val_score(model, train_train.ix[:,'pixel0':'pixel783'], train_train.ix[:,'label'], cv=3)
+model.fit(train_train.ix[:,'pixel0':'pixel783'], train_train.ix[:,'label'].values.ravel())
+print "model.score", model.score(train_test.ix[:,'pixel0':'pixel783'], train_test.ix[:,'label'].values.ravel())
+
 
 #Predict output
-predicted=model.predict(train_test.ix[:,'pixel0':'pixel783'])
+#predicted=model.predict(train_test.ix[:,'pixel0':'pixel783'])
 #print predicted
-print "Accuracy: ", accuracy_score(train_test.ix[:,'label'].astype(int), predicted)
+#print "Accuracy: ", accuracy_score(train_test.ix[:,'label'].astype(int), predicted)
