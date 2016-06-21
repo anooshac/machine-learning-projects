@@ -4,7 +4,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.datasets.base import load_iris
 from sklearn.metrics import accuracy_score
 
-#load iris dataset
+#load iris dataset 
 iris=load_iris()
 
 #get data, column names, labels, etc. as list
