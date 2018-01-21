@@ -17,3 +17,4 @@ batch_size = 32
 embedding_dim = 512
 epochs = 1000
 learning_rate = 0.01
+print_freq = 2
